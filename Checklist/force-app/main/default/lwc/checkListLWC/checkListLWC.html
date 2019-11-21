@@ -1,0 +1,437 @@
+<template>
+        <lightning-card >
+                
+            <div class="slds-form-element" style="padding-left: 15px;
+            width: 28%;"><lightning-icon class="slds-icon slds-icon slds-icon_small slds-icon-text-default" icon-name="utility:picklist_type" size="x-small" alternative-text="icon" > </lightning-icon>Select checklist Type
+            <template if:true={ChecklistValue.data} >
+                <lightning-combobox name="progress"
+                                    label=""
+                                    value={value}
+                                    placeholder="-Select-"
+                                    options={ChecklistValue.data.values}
+                                    onchange={handleChange} >
+                </lightning-combobox>
+          </template>
+        </div><br/>
+        
+          <lightning-tabset>
+            <lightning-tab if:true={showTabTv} label="TV Checklist">
+               <!-- you selected industry: <b>{value}</b><br/><br/>-->
+               <lightning-card  title=""><lightning-progress-indicator current-step={show} type="path" variant="base">
+                    <lightning-progress-step label="Commercial Information" value="step-1" data-id="cinfo" onclick={toggle1}></lightning-progress-step>
+                    <lightning-progress-step label="Payment Terms:" value="step-2" data-id="pinfo" onclick={toggle1}></lightning-progress-step>
+                    <lightning-progress-step label="Shipping & Delivery Information" value="step-3" data-id="true" onclick={toggle1}></lightning-progress-step>
+                    <lightning-progress-step label="End User Information" value="step-4" data-id="true" onclick={toggle1}></lightning-progress-step>
+                    <lightning-progress-step label="TV Technical Information" value="step-5" data-id="true" onclick={toggle1}></lightning-progress-step>
+                  
+                  
+                  <!---  <template if:true={showStep4}>
+                        <lightning-progress-step label="Nurturing" value="step-4"></lightning-progress-step>
+                    </template>
+                    <lightning-progress-step label="Closed" value="step-5"></lightning-progress-step>-->
+                </lightning-progress-indicator>
+              <hr>
+             
+               <div class="slds-grid slds-gutters" if:true={cinfo} >
+                <div class="slds-col">
+                        <table >
+                                <tbody>
+                                  <tr class="slds-line-height_reset">
+                                    <td class="" scope="col">
+                                    <!--- <div class="slds-truncate" title="Name">Name</div>   class="slds-table slds-table_bordered slds-border_left slds-border_right"-->
+
+                                    <div class="slds-col">
+                       
+                                            <div class="slds-form-element" style="padding-left: 15px;width: 100%;">
+                                         <template if:true={salesregion.data} >
+                            
+                                <lightning-icon class="slds-icon slds-icon slds-icon_small slds-icon-text-default" icon-name="utility:picklist_type" size="x-small" alternative-text="icon" > </lightning-icon>Sales Region
+                       
+                             <!---  <lightning-combobox name="region"
+                                label=""
+                                
+                                value={region}
+                                placeholder="-Select-"
+                                options={salesregion.data.values}
+                                onchange={handlechangeform} >
+            </lightning-combobox>-->
+            <lightning-input type="text" label="" name="region" value={region} disabled></lightning-input>
+        
+                  </template></div></div>
+                                    </td>
+                                  
+                                
+                 <td>
+                        <div class="slds-col">
+                       
+                                <div class="slds-form-element" style="padding-left: 15px;width: 100%;">
+                                    <lightning-icon class="slds-icon slds-icon slds-icon_small slds-icon-text-default" icon-name="utility:picklist_type" size="x-small" alternative-text="icon" > </lightning-icon>Country
+                                    <lightning-input type="text" label="" name="country" value={country} onchange={handlechangeform}  ></lightning-input>
+                        </div>
+                     
+                </div>
+
+
+                 </td>
+                 <td>
+                        <div class="slds-col">
+                                <div class="slds-form-element" style="padding-left: 15px;width: 100%;">
+                                        <lightning-icon class="slds-icon slds-icon slds-icon_small slds-icon-text-default" icon-name="utility:picklist_type" size="x-small" alternative-text="icon" > </lightning-icon>Sales Manager
+                                        <lightning-input type="text" label="" name="smanager" value={smanager} onchange={handlechangeform}></lightning-input>
+                            </div>
+                        </div>
+
+
+                 </td>
+
+                 <td>
+
+                        <div class="slds-col">
+                                <div class="slds-form-element" style="padding-left: 15px;padding-right: 15px;width: 100%;">
+                                        <lightning-icon class="slds-icon slds-icon slds-icon_small slds-icon-text-default" icon-name="utility:picklist_type" size="x-small" alternative-text="icon" > </lightning-icon>National Account Manager (US Only)
+                                        <lightning-input type="text" label="" name="amanager" value={amanager} onchange={handlechangeform}></lightning-input>
+                            </div>
+                        </div>
+
+                 </td>
+                                </tr>
+                                <tr>
+
+                                    <td>
+                                          <!-- <div class="slds-grid slds-gutters">--> 
+                                                    <div class="slds-col" style="
+                                                    padding-top: 16px;
+                                                ">
+                                                         <div class="slds-form-element" style="padding-left: 15px;width: 100%;">
+                                                                    <lightning-icon class="slds-icon slds-icon slds-icon_small slds-icon-text-default" icon-name="utility:picklist_type" size="x-small" alternative-text="icon" > </lightning-icon>Quote Number:  
+                                    
+                                                                    <lightning-input type="text" label="" name="qnumber" value={qname} disabled></lightning-input>
+                                                        </div>
+                                                    </div>
+                                                   
+                                        
+                                    </td>
+                                    <td>
+                                            <div class="slds-col" style="
+                                            padding-top: 16px;
+                                        ">
+                           
+                                                    <div class="slds-form-element" style="padding-left: 15px;width: 100%;">
+                                                        <lightning-icon class="slds-icon slds-icon slds-icon_small slds-icon-text-default" icon-name="utility:picklist_type" size="x-small" alternative-text="icon" > </lightning-icon>Customer:
+                    
+                                                        <lightning-input type="text" label="" name="customer" value={customer} onchange={handlechangeform}></lightning-input>
+                                            </div>
+                    
+                                         
+                                    </div>
+
+                                    </td>
+                                    <td>
+                                            <div class="slds-col" style="
+                                            padding-top: 16px;
+                                        ">
+                                                    <div class="slds-form-element" style="padding-left: 15px;width: 100%;">
+                                                            <lightning-icon class="slds-icon slds-icon slds-icon_small slds-icon-text-default" icon-name="utility:picklist_type" size="x-small" alternative-text="icon" > </lightning-icon>Station Owner/Group
+                            
+                                                            <lightning-input type="text" label="" name="sgroup" value={sgroup} onchange={handlechangeform}></lightning-input>
+                                                </div>
+                                            </div>
+
+                                    </td>
+                                    <td>
+                                            <div class="slds-col" style="
+                                            padding-top: 16px;
+                                        ">
+                                                    <!--<div class="slds-form-element" style="padding-left: 15px;padding-right: 15px;width: 100%;">
+                                                            <lightning-icon class="slds-icon slds-icon slds-icon_small slds-icon-text-default" icon-name="utility:picklist_type" size="x-small" alternative-text="icon" > </lightning-icon>National Account Manager (US Only)
+                                                            <lightning-input type="text" label=""></lightning-input>
+                                                </div>-->
+                            
+                                                <template if:true={signedQ.data} >
+                                                        <div class="slds-form-element" style="padding-left: 15px;width: 100%;padding-right: 15px;">
+                                                            <lightning-icon class="slds-icon slds-icon slds-icon_small slds-icon-text-default" icon-name="utility:picklist_type" size="x-small" alternative-text="icon" > </lightning-icon>Signed Quotation?
+                                                    <lightning-combobox name="signQuote"
+                                                                        label=""
+                                                                        value={signQuote}
+                                                                        placeholder="-Select-"
+                                                                        options={signedQ.data.values}
+                                                                        onchange={handlechangeform} >
+                                                    </lightning-combobox>
+                                                </div>
+                                              </template>
+                                            </div>
+
+                                    </td>
+                                </tr>
+                                <tr>
+
+<td>
+        <div class="slds-col" style="
+        padding-top: 16px;
+    ">
+            
+
+            
+                    <div class="slds-form-element" style="padding-left: 15px;width: 100%;padding-right: 15px;">
+                        <lightning-icon class="slds-icon slds-icon slds-icon_small slds-icon-text-default" icon-name="utility:picklist_type" size="x-small" alternative-text="icon" > </lightning-icon>Purchase Order Received ?
+                <lightning-combobox name="porder1"
+                                    label=""
+                                    value={porder1}
+                                    placeholder="-Select-"
+                                    options={porder.data.values}
+                                    onchange={handlechangeform} >
+                </lightning-combobox>
+            </div>
+         
+        </div>
+
+</td>
+<td>
+       
+                <div class="slds-col"  style="
+                padding-top: 16px;
+            ">
+                     <div class="slds-form-element" style="padding-left: 15px;width: 100%;">
+                                <lightning-icon class="slds-icon slds-icon slds-icon_small slds-icon-text-default" icon-name="utility:picklist_type" size="x-small" alternative-text="icon" > </lightning-icon>PO Number
+
+                                <lightning-input type="text" label="" name="pnumber" value={pnumber} onchange={handlechangeform}></lightning-input>
+                    </div>
+                </div>
+              
+
+</td>
+<td>
+       
+        <div class="slds-col" style="
+        padding-top: 16px;
+    ">
+            
+
+           
+                    <div class="slds-form-element" style="padding-left: 15px;width: 100%;padding-right: 15px;">
+                        <lightning-icon class="slds-icon slds-icon slds-icon_small slds-icon-text-default" icon-name="utility:picklist_type" size="x-small" alternative-text="icon" > </lightning-icon>Is this customer tax exempt?
+                <lightning-combobox name="taxex"
+                                    label=""
+                                    value={taxex}
+                                    placeholder="-Select-"
+                                    options={texmpt.data.values}
+                                    onchange={handlechangeform} >
+                </lightning-combobox>
+            </div>
+          
+        </div>
+      
+
+</td></tr><tr>
+<td>
+        <div class="slds-col" style="
+        padding-top: 16px;
+    ">
+            
+
+           
+                    <div class="slds-form-element" style="padding-left: 15px;width: 100%;padding-right: 15px;">
+        <lightning-button label="Next" icon-name="utility:chevronright"  variant="brand" data-id="step-2" onclick={toggleStep4}></lightning-button>
+        </div></div>
+                            
+                      
+
+</td>
+
+
+                                </tr>
+                                </tbody>
+                              </table>
+                   
+                </div>
+              
+                
+               
+                
+            </div>
+              
+              <!-- payment -->
+              <div class="slds-grid slds-gutters" if:true={pinfo} >
+                    <div class="slds-col">
+                            <table >
+                                    <tbody>
+                                      <tr class="slds-line-height_reset">
+                                      
+                                      
+                                    
+                     <td>
+                            <div class="slds-col">
+                           
+                                    <div class="slds-form-element" style="padding-left: 15px;width: 100%;">
+                                        <lightning-icon class="slds-icon slds-icon slds-icon_small slds-icon-text-default" icon-name="utility:picklist_type" size="x-small" alternative-text="icon" > </lightning-icon>Currency
+                                        <lightning-input type="text" label="" name="currency" value={qcurrency} disabled  ></lightning-input>
+                            </div>
+                         
+                    </div>
+    
+    
+                     </td>
+                     <td class="" scope="col">
+                            <!--- <div class="slds-truncate" title="Name">Name</div>   class="slds-table slds-table_bordered slds-border_left slds-border_right"-->
+
+                            <div class="slds-col">
+               
+                                    <div class="slds-form-element" style="padding-left: 15px;width: 100%;">
+                                 <template if:true={salesregion.data} >
+                    
+                        <lightning-icon class="slds-icon slds-icon slds-icon_small slds-icon-text-default" icon-name="utility:picklist_type" size="x-small" alternative-text="icon" > </lightning-icon>DP or LC Required?
+               
+                        <lightning-combobox name="dp_lc1"
+                        label=""
+                        
+                        value={dp_lc1}
+                        placeholder="-Select-"
+                        options={dp_lc.data.values}
+                        onchange={handlechangeform} >
+    </lightning-combobox>
+
+          </template></div></div>
+                            </td>
+                     <td>
+                            <div class="slds-col">
+                                    <div class="slds-form-element" style="padding-left: 15px;width: 100%;">
+                                            <lightning-icon class="slds-icon slds-icon slds-icon_small slds-icon-text-default" icon-name="utility:picklist_type" size="x-small" alternative-text="icon" > </lightning-icon>Amount
+                                            <lightning-input type="text" label="" name="amount" onchange={handlechangeform}></lightning-input>
+                                </div>
+                            </div>
+    
+    
+                     </td>
+    
+                     <td>
+    
+                            <div class="slds-col">
+               
+                                    <div class="slds-form-element" style="padding-left: 15px;width: 100%;">
+                                 <template if:true={salesregion.data} >
+                    
+                        <lightning-icon class="slds-icon slds-icon slds-icon_small slds-icon-text-default" icon-name="utility:picklist_type" size="x-small" alternative-text="icon" > </lightning-icon>Dealer Commission?
+               
+                        <lightning-combobox name="dcom1"
+                        label=""
+                        
+                        value={dcom1ß}
+                        placeholder="-Select-"
+                        options={dcom.data.values}
+                        onchange={handlechangeform} >
+    </lightning-combobox>
+
+          </template></div></div>
+    
+                     </td>
+                                    </tr>
+                                    <tr>
+    
+                                        <td>
+                                              <!-- <div class="slds-grid slds-gutters">--> 
+                                                        <div class="slds-col" style="
+                                                        padding-top: 16px;
+                                                    ">
+                                                             <div class="slds-form-element" style="padding-left: 15px;width: 100%;">
+                                                                        <lightning-icon class="slds-icon slds-icon slds-icon_small slds-icon-text-default" icon-name="utility:picklist_type" size="x-small" alternative-text="icon" > </lightning-icon>Account Payable
+                                        
+                                                                        <lightning-input type="text" label="" name="apayable" value={apayable} ></lightning-input>
+                                                            </div>
+                                                        </div>
+                                                       
+                                            
+                                        </td>
+                                       
+                                       
+                                        <td>
+                                                <div class="slds-col" style="
+                                                padding-top: 16px;
+                                            ">
+                                                        <!--<div class="slds-form-element" style="padding-left: 15px;padding-right: 15px;width: 100%;">
+                                                                <lightning-icon class="slds-icon slds-icon slds-icon_small slds-icon-text-default" icon-name="utility:picklist_type" size="x-small" alternative-text="icon" > </lightning-icon>National Account Manager (US Only)
+                                                                <lightning-input type="text" label=""></lightning-input>
+                                                    </div>-->
+                                
+                                                    <template if:true={signedQ.data} >
+                                                            <div class="slds-form-element" style="padding-left: 15px;width: 100%;padding-right: 15px;">
+                                                                <lightning-icon class="slds-icon slds-icon slds-icon_small slds-icon-text-default" icon-name="utility:picklist_type" size="x-small" alternative-text="icon" > </lightning-icon>Down Payment Invoice Needed?
+                                                        <lightning-combobox name="dpayment1"
+                                                                            label=""
+                                                                            value={dpayment1}
+                                                                            placeholder="-Select-"
+                                                                            options={dpayment.data.values}
+                                                                            onchange={handlechangeform} >
+                                                        </lightning-combobox>
+                                                    </div>
+                                                  </template>
+                                                </div>
+    
+                                        </td>
+                                    </tr>
+                                   <tr>
+    <td>
+            <div class="slds-col" style="
+            padding-top: 16px;
+        ">
+                
+    
+               
+                        <div class="slds-form-element" style="padding-left: 15px;width: 100%;padding-right: 15px;">
+            <lightning-button label="Next" icon-name="utility:chevronright"  variant="brand" data-id="step-3" onclick={toggleStep4}></lightning-button>
+            </div></div>
+                                
+                          
+    
+    </td>
+    
+    
+                                    </tr>
+                                    </tbody>
+                                  </table>
+                       
+                    </div>
+                  
+                    
+                   
+                    
+                  </div>
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+        <!-- ------------ -->
+        
+        <br/><br/>
+             
+                    
+                    
+                          
+                    </lightning-card>     
+                                           
+            </lightning-tab>
+            <template if:true={showTabRadio}>
+                <lightning-tab label="Radio Checklist">
+                    you selected checklist type: <b>{value}</b><br/><br/>
+                </lightning-tab>
+            </template>
+        </lightning-tabset>
+         <!---<template if:true={IndustryPicklistValues.data}>
+            Account Type: <br/>
+            <template for:each={TypePicklistValues.data.values} for:item="item">
+                <lightning-input
+                    placeholder="Account Type"
+                    key={item.value}
+                    label={item.label}
+                    data-value={item.value}
+                    type="checkbox"></lightning-input>
+            </template>
+        </template>-->
+        </lightning-card>
+    </template>
